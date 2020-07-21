@@ -1,0 +1,19 @@
+import praw
+
+reddit = praw.Reddit(user_agent="AC-Villager-Bot by u/missingclubpenguin",
+                     client_id="Z2aGuX1BWmYC9w",
+                     client_secret="HY5EjCLDDynCD9s5qvgcp-fzBZA",
+                     username="AC-Villager-Bot",
+                     password="AC-Villager-Bot"
+                     )
+
+subreddit = reddit.subreddit("ACVillager")
+
+me = reddit.redditor("missingclubpenguin")
+user = "AC-Villager-Bot"
+
+for submission in subreddit.stream.submissions():
+    if submission.title.find("[FT] Axel") != -1:
+        # send submission.url
+        reddit.user.send_message("missingclubpenguin", "New Axel Post!", submission.url, sr=None, captcha=None)
+
