@@ -1,34 +1,38 @@
 import praw
 
-KEYPHRASES = ["[ft] axel", "bells"]
-
-SUBJECT = "Someone is selling Axel!"
-
+KEYPHRASE = "Del"
+SUBJECT = "Someone is selling a villager you're interested in!"
+USER = "missingclubpenguin"
 
 def access_reddit():
-    """ Accesses Reddit API """
+    """
+    Accesses Reddit's API and logs into bot account.
+    """
     reddit = praw.Reddit(user_agent="AC-Villager-Bot from u/missingclubpenguin",
-                         client_id="awYyTRoVE1gxBA",
-                         client_secret="XTftwvyLx4pEP3OlWNODrSYJHzE",
+                         client_id="PMO4iJYh-egnJw",
+                         client_secret="ocde1C0IdtVjKh999H7XUomyfrc",
                          username="AC-Villager-Bot",
                          password="AC-Villager-Bot"
                          )
     return reddit
 
-def send_message(reddit):
-    """ Send notification to self """
-    subreddit = reddit.subreddit("ACVillager")
 
-    # assigning my private account to myself
-    me = reddit.redditor("missingclubpenguin")
+def find_post(reddit):
+    """
+    Parses through subreddit submissions and finds posts that include keyphrase(s).
+    """
+    subreddit = reddit.subreddit("ACVillager") # can be changed to any subreddit
 
-    for submission in subreddit.stream.submissions():
-        for keyphrase in KEYPHRASES:
-            if submission.title.lower() in KEYPHRASES:
-                # send submission.url
-                reddit.user.send_message("missingclubpenguin", "New Axel Post!", submission.url, sr=None, captcha=None)
+    for submission in subreddit.new(limit=30): #TODO: Implement time and use: for submission in subreddit.stream.submissions():
+        if KEYPHRASE in submission.title: # convert keyphrase and titles to lowercase for more accurate parsing
+            send_message(reddit, submission)
+
+
+def send_message(reddit, submission):
+    reddit.redditor("missingclubpenguin").message(SUBJECT, submission.url)
 
 
 if __name__ == '__main__':
     reddit = access_reddit()
-    send_message(reddit)
+    find_post(reddit)
+
