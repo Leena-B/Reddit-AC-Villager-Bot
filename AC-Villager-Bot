@@ -1,19 +1,35 @@
 import praw
 
-reddit = praw.Reddit(user_agent="AC-Villager-Bot by u/missingclubpenguin",
-                     client_id="Z2aGuX1BWmYC9w",
-                     client_secret="HY5EjCLDDynCD9s5qvgcp-fzBZA",
-                     username="AC-Villager-Bot",
-                     password="AC-Villager-Bot"
-                     )
+KEYPHRASES = ["[ft] axel", "bells"]
 
-subreddit = reddit.subreddit("ACVillager")
+SUBJECT = "Someone is selling Axel!"
 
-me = reddit.redditor("missingclubpenguin")
-user = "AC-Villager-Bot"
 
-for submission in subreddit.stream.submissions():
-    if submission.title.find("[FT] Axel") != -1:
-        # send submission.url
-        reddit.user.send_message("missingclubpenguin", "New Axel Post!", submission.url, sr=None, captcha=None)
+def access_reddit():
+    """ Accesses Reddit API """
+    reddit = praw.Reddit(user_agent="AC-Villager-Bot from u/missingclubpenguin",
+                         client_id="awYyTRoVE1gxBA",
+                         client_secret="XTftwvyLx4pEP3OlWNODrSYJHzE",
+                         username="AC-Villager-Bot",
+                         password="AC-Villager-Bot"
+                         )
+    return reddit
+
+def send_message(reddit):
+    """ Send notification to self """
+    subreddit = reddit.subreddit("ACVillager")
+
+    # assigning my private account to myself
+    me = reddit.redditor("missingclubpenguin")
+
+    for submission in subreddit.stream.submissions():
+        for keyphrase in KEYPHRASES:
+            if submission.title.lower() in KEYPHRASES:
+                # send submission.url
+                reddit.user.send_message("missingclubpenguin", "New Axel Post!", submission.url, sr=None, captcha=None)
+
+
+if __name__ == '__main__':
+    reddit = access_reddit()
+    send_message(reddit)
 
