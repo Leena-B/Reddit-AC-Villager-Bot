@@ -1,6 +1,6 @@
 # Reddit Notification Bot for r/ACVillager
 
-<h5> What does this bot do? </h5>
+<h2> What does this bot do? </h2>
 This bot i utilizes Reddit's API to send me a personal reddit message when there is a submission on r/ACVillager. 
 
 <h4> Improvements needed: <h4>
