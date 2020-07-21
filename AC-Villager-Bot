@@ -32,4 +32,3 @@ def send_message(reddit):
 if __name__ == '__main__':
     reddit = access_reddit()
     send_message(reddit)
-
