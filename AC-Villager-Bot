@@ -2,7 +2,7 @@ import praw
 
 KEYPHRASE = "Del"
 SUBJECT = "Someone is selling a villager you're interested in!"
-USER = "missingclubpenguin"
+USER = "username"
 
 def access_reddit():
     """
@@ -12,7 +12,7 @@ def access_reddit():
                          client_id="PMO4iJYh-egnJw",
                          client_secret="ocde1C0IdtVjKh999H7XUomyfrc",
                          username="AC-Villager-Bot",
-                         password="AC-Villager-Bot"
+                         password="password"
                          )
     return reddit
 
@@ -29,7 +29,7 @@ def find_post(reddit):
 
 
 def send_message(reddit, submission):
-    reddit.redditor("missingclubpenguin").message(SUBJECT, submission.url)
+    reddit.redditor("USER").message(SUBJECT, submission.url)
 
 
 if __name__ == '__main__':
